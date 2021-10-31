@@ -16,7 +16,7 @@ public class ReconcileDto {
   private String cancelDate;
   private String pgRequestKey;
   private String userId;
-  private int paymentStatus;
+  private String paymentStatus;
   private String paymentAmount;
 
   public String toString() {

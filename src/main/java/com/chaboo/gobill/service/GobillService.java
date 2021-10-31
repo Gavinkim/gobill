@@ -2,11 +2,14 @@ package com.chaboo.gobill.service;
 
 import com.chaboo.gobill.dto.ReconcileColumnType;
 import com.chaboo.gobill.dto.ReconcileDto;
+import com.chaboo.gobill.dto.gopg.ReportTransactionRes;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -17,9 +20,24 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 @Service
 public class GobillService {
+
+  public List<ReconcileDto> convertToReconileDto(List<ReportTransactionRes> reportTransactionRes) {
+    if(ObjectUtils.isEmpty(reportTransactionRes)) return null;
+    return reportTransactionRes.stream()
+        .map(r->ReconcileDto.builder()
+            .paymentDate(r.getTransaction().getTransferDate())
+            .cancelDate(r.getTransaction().getTransferDate()) //fixme
+            .userId(r.getUser().getId())
+            .paymentStatus(r.getTransaction().getStatus())
+            .paymentAmount(r.getPaymentDetails().getPayment().getAmount())
+            .pgRequestKey(r.getTransaction().getExternalId())
+            .build())
+        .collect(Collectors.toList());
+  }
 
   public ByteArrayInputStream convertToExcelFile(String sheetName,
       List<ReconcileDto> reconcileDtoList) throws IOException {
