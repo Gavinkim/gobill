@@ -6,8 +6,12 @@ import com.chaboo.gobill.dto.gopg.ReportTransactionRes.Purchase;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -97,5 +101,24 @@ public class UtilsTest {
   @Test
   public void timeTest(){
     log.info(">>>> {}", Utils.timeZoneConverter(TimeZone.getTimeZone("GMT"), "2021-10-01 12:00"));
+  }
+
+  @Test
+  public void timeLoopTest(){
+    var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    LocalDateTime start = LocalDateTime.parse("2021-10-30 00:00:00", formatter), end = LocalDateTime.parse("2021-10-31 00:00:00",formatter);
+    Stream.iterate(start, dt->dt.plusHours(1))
+        .limit(ChronoUnit.HOURS.between(start, end) + 1)
+        .forEach(System.out::println);
+  }
+
+  @Test
+  public void timeLoopTest2(){
+    var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    LocalDateTime start = LocalDateTime.parse("2021-10-30 00:00:00", formatter), end = LocalDateTime.parse("2021-10-31 00:00:00",formatter);
+    LocalDateTime next = start.minusHours(1);
+    while((next = next.plusHours(1)).isBefore(end.plusHours(1))) {
+      System.out.println(next);
+    }
   }
 }

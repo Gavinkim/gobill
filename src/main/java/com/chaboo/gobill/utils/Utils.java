@@ -22,16 +22,17 @@ public class Utils {
   public static final int DIR_CREATED_SUCCESS = 1;
   public static final int DIR_CREATED_ALREADY = 2;
 
-  public static <T> List<T> jsonArrayToObjectList(String json, Class<T> tClass) throws IOException {
+  public static <T> List<T> jsonArrayToObjectList(String json, Class<T> target) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
-    CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, tClass);
+    CollectionType listType = mapper.getTypeFactory()
+        .constructCollectionType(ArrayList.class, target);
     List<T> ts = mapper.readValue(json, listType);
-    log.debug("class name: {}", ts.get(0).getClass().getName());
+    log.debug("TargetClass: {}", ts.get(0).getClass().getName());
     return ts;
   }
 
   public static String timeZoneConverter(TimeZone zone, String strTime) {
-    LocalDateTime localDateTime = strToLocalDateTime(strTime,DATETIME_FORMATTER);
+    LocalDateTime localDateTime = strToLocalDateTime(strTime, DATETIME_FORMATTER);
     return localDateTime.atZone(zone.toZoneId()).toString();
   }
 
@@ -42,22 +43,21 @@ public class Utils {
   }
 
   /**
-   * 0 -> fail
-   * 1 -> success
-   * 2 -> already
+   * 0 -> fail 1 -> success 2 -> already
+   *
    * @param dir
    * @return
    */
   public static int createDir(String dir) {
-    try{
+    try {
       Path path = Paths.get(dir);
-      if(!Files.exists(path)) {
+      if (!Files.exists(path)) {
         Files.createDirectories(path);
         return DIR_CREATED_SUCCESS;
-      }else{
+      } else {
         return DIR_CREATED_ALREADY;
       }
-    }catch (IOException e) {
+    } catch (IOException e) {
       log.error("Failed to create directory. {}", e);
     }
     return DIR_CREATED_FAIL;
