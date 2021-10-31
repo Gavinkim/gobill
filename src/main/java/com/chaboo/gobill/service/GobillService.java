@@ -5,6 +5,7 @@ import com.chaboo.gobill.dto.ReconcileDto;
 import com.chaboo.gobill.dto.gopg.ReportTransactionRes;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -88,6 +89,10 @@ public class GobillService {
         paymentAmountCell.setCellStyle(paymentAmountCellStyle);
       }
 
+//      //파일 저장
+//      try (FileOutputStream outputStream = new FileOutputStream("JavaBooks.xlsx")) {
+//        workbook.write(outputStream);
+//      }
       workbook.write(out);
       return new ByteArrayInputStream(out.toByteArray());
     }
