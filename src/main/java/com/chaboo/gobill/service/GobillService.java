@@ -1,14 +1,13 @@
 package com.chaboo.gobill.service;
 
+import com.chaboo.gobill.aop.annotation.LogTrace;
 import com.chaboo.gobill.dto.ReconcileColumnType;
 import com.chaboo.gobill.dto.ReconcileDto;
 import com.chaboo.gobill.dto.gopg.ReportTransactionRes;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.poi.ss.usermodel.Cell;
@@ -26,6 +25,7 @@ import org.springframework.util.ObjectUtils;
 @Service
 public class GobillService {
 
+  @LogTrace
   public List<ReconcileDto> convertToReconileDto(List<ReportTransactionRes> reportTransactionRes) {
     if(ObjectUtils.isEmpty(reportTransactionRes)) return null;
     return reportTransactionRes.stream()
