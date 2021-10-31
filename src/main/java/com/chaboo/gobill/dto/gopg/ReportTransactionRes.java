@@ -112,7 +112,6 @@ public class ReportTransactionRes {
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Subscription {
-
       private String name;
     }
 

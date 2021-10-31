@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
+import java.util.TimeZone;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -91,5 +92,10 @@ public class UtilsTest {
         .forEach(c->{
           System.out.println(c.getUser().getCountry());
         });
+  }
+
+  @Test
+  public void timeTest(){
+    log.info(">>>> {}", Utils.timeZoneConverter(TimeZone.getTimeZone("GMT"), "2021-10-01 12:00"));
   }
 }
