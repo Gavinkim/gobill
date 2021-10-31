@@ -2,6 +2,7 @@ package com.chaboo.gobill.utils;
 
 import com.chaboo.gobill.dto.ReconcileDto;
 import com.chaboo.gobill.dto.gopg.ReportTransactionRes;
+import com.chaboo.gobill.dto.gopg.ReportTransactionRes.Purchase;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -87,6 +88,8 @@ public class UtilsTest {
     List<ReportTransactionRes> result = Utils.jsonArrayToObjectList(transaction, ReportTransactionRes.class);
     log.info("{}", result);
     result.stream()
-        .forEach(System.out::println);
+        .forEach(c->{
+          System.out.println(c.getUser().getCountry());
+        });
   }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
@@ -18,6 +19,7 @@ public class ReportTransactionRes {
   @JsonProperty("payment_details")
   private PaymentDetails paymentDetails;
 
+  @Getter
   private Purchase purchase;
 
   private Transaction transaction;
@@ -32,7 +34,7 @@ public class ReportTransactionRes {
   @NoArgsConstructor
   @AllArgsConstructor
   @JsonIgnoreProperties(ignoreUnknown = true)
-  static class PaymentDetails {
+  public static class PaymentDetails {
 
     private Payment payment;
     @JsonProperty("sales_tax")
@@ -42,7 +44,7 @@ public class ReportTransactionRes {
     @NoArgsConstructor
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
-    static class Payment {
+    public static class Payment {
 
       private String amount;
       @JsonProperty("amount_from_ps")
@@ -55,7 +57,7 @@ public class ReportTransactionRes {
     @NoArgsConstructor
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
-    static class SalesTax {
+    public static class SalesTax {
 
       private String amount;
       private String percent;
@@ -67,8 +69,9 @@ public class ReportTransactionRes {
   @NoArgsConstructor
   @AllArgsConstructor
   @JsonIgnoreProperties(ignoreUnknown = true)
-  static class Purchase {
+  public static class Purchase {
 
+    @Getter
     @JsonProperty("pin_codes")
     private PinCodes pinCodes;
     @JsonProperty("simple_checkout")
@@ -83,7 +86,7 @@ public class ReportTransactionRes {
     @NoArgsConstructor
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
-    static class PinCodes {
+    public static class PinCodes {
 
       private String amount;
       private String content;
@@ -95,7 +98,7 @@ public class ReportTransactionRes {
     @NoArgsConstructor
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
-    static class SimpleCheckout {
+    public static class SimpleCheckout {
 
       private String amount;
       private String currency;
@@ -108,7 +111,7 @@ public class ReportTransactionRes {
     @NoArgsConstructor
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
-    static class Subscription {
+    public static class Subscription {
 
       private String name;
     }
@@ -117,7 +120,7 @@ public class ReportTransactionRes {
     @NoArgsConstructor
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
-    static class VirtualCurrency {
+    public static class VirtualCurrency {
 
       private String amount;
       private String name;
@@ -128,7 +131,7 @@ public class ReportTransactionRes {
   @NoArgsConstructor
   @AllArgsConstructor
   @JsonIgnoreProperties(ignoreUnknown = true)
-  static class Transaction {
+  public static class Transaction {
 
     @JsonProperty("dry_run")
     private int dryRun;
@@ -157,7 +160,7 @@ public class ReportTransactionRes {
     @NoArgsConstructor
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
-    static class PaymentMethod {
+    public static class PaymentMethod {
 
       private Integer id;
       private String name;
@@ -167,7 +170,7 @@ public class ReportTransactionRes {
     @NoArgsConstructor
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
-    static class Project {
+    public static class Project {
       private Integer id;
       private String name;
     }
@@ -178,7 +181,7 @@ public class ReportTransactionRes {
   @NoArgsConstructor
   @AllArgsConstructor
   @JsonIgnoreProperties(ignoreUnknown = true)
-  static class User {
+  public static class User {
 
     private String id;
     private String country;
